@@ -17,9 +17,9 @@ public:
         callback = callback_;
     }
 
-    void operator()(Args...args) const
+    R operator()(Args...args) const
     {
-        callback(args...);
+        return callback(args...);
     }
 private:
     Callback callback;
@@ -36,10 +36,10 @@ int main() {
         std::cout << "i=" << i << "j=" << j << std::endl;
         return i + j;
     });
-    task(1, 2);
+    std::cout << task(1, 2) << std::endl;
 
     MyTemp<int(int, int)> task__(Fun);
-    task__(1, 2);
+    std::cout << task__(1, 2) << std::endl;
 
     MyTemp<void(std::string str)> task_([](std::string str) {
         std::cout << str << std::endl;
